@@ -3,15 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mhlaba Hair</title>
+    <meta name="author" content="NalediMaseko">
+    <meta name="description" content="Calculate total price and view cart items at Mhlaba Hair.">
+    <title>Cart & Calculation - Mhlaba Hair</title>
+    <!-- Relative path: steps out of pages/ into styles/ -->
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <header>
-      <h1>Cart</h1>  
+
+    <!-- Header & Navigation at Top -->
+    <header class="main-header">
+        <h1>Your Shopping Cart</h1>
+        <nav class="navbar">
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html">About Us</a>
+            <a href="bookingspage.html">Bookings</a>
+            <a href="contactpage.html">Contact Us</a>
+            <a href="productpage.html">Shop</a>
+            <a href="calculatepage.html" class="active">Cart</a>
+        </nav>
     </header>
-    <main>
-        <h2>Items:</h2>
-        <p>Total Price: </p>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+        <section class="cart-section">
+            <h2>Cart Summary</h2>
+            
+            <div id="cart-container">
+                <!-- Cart items list will be populated here by JS -->
+                <ul id="cart-list" class="cart-list"></ul>
+
+                <div class="cart-summary-box">
+                    <p><span>Subtotal:</span> <strong id="subtotal-price">R0.00</strong></p>
+                    <p><span>VAT (15%):</span> <strong id="vat-price">R0.00</strong></p>
+                    <hr>
+                    <p class="total-line"><span>Total Price:</span> <strong id="total-price">R0.00</strong></p>
+                </div>
+
+                <div class="cart-actions">
+                    <a href="productpage.html" class="btn btn-secondary">Continue Shopping</a>
+                    <button class="btn btn-primary" onclick="clearCart()">Clear Cart</button>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- Cart Calculation Logic -->
+    <script>
+        function renderCart() {
+            const cartList = document.getElementById('cart-list');
+            const subtotalEl = document.getElementById('subtotal-price');
+            const vatEl = document.getElementById('vat-price');
+            const totalEl = document.getElementById('total-price');
+
+            // Retrieve items from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            cartList.innerHTML = '';
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li class="empty-cart-msg">Your cart is currently empty.</li>';
+            } else {
+                cart.forEach((item, index) => {
+                    subtotal += item.price;
+
+                    const li = document.createElement('li');
+                    li.className = 'cart-item';
+                    li.innerHTML = `
+                        <span class="item-name">${item.name}</span>
+                        <span class="item-price">R${item.price.toFixed(2)}</span>
+                        <button class="remove-btn" onclick="removeItem(${index})">&times;</button>
+                    `;
+                    cartList.appendChild(li);
+                });
+            }
+
+            const vat = subtotal * 0.15;
+            const total = subtotal + vat;
+
+            subtotalEl.textContent = `R${subtotal.toFixed(2)}`;
+            vatEl.textContent = `R${vat.toFixed(2)}`;
+            totalEl.textContent = `R${total.toFixed(2)}`;
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            renderCart();
+        }
+
+        // Render cart on page load
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+<footer class="site-footer">
+    <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
+</footer>
 </body>
 </html>

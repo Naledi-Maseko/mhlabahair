@@ -3,28 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mhlaba Hair</title>
+    <meta name="author" content="NalediMaseko">
+    <meta name="description" content="Explore and purchase hair care products at Mhlaba Hair.">
+    <title>Shop - Mhlaba Hair</title>
+    <!-- Relative path: steps out of pages/ into styles/ -->
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <header>
+
+    <!-- Header & Navigation at Top -->
+    <header class="main-header">
         <h1>Hair Products</h1>
+        <nav class="navbar">
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html">About Us</a>
+            <a href="bookingspage.html">Bookings</a>
+            <a href="contactpage.html">Contact Us</a>
+            <a href="productpage.html" class="active">Shop</a>
+            <a href="calculatepage.html">Cart</a>
+        </nav>
     </header>
-    <main>
-    <h2>Our Haircare Products are responsibly sourced and traditionally created</h2>
-   <div class="product-grid">
-            <!-- Product Box 1 -->
-            <div class="product-card">
-                <img src="" alt="shampoo">
-                <h3>Shampoo</h3>
-                <p class="price">R200.00</p>
-                <button onclick="addToCart('Shampoo', 20, 'product')">Add to Cart</button>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+        <section class="products-section">
+            <h2>Our Haircare Products</h2>
+            <p class="subtitle">Responsibly sourced and traditionally created for every hair type.</p>
+
+            <div class="product-grid">
+                
+                <!-- Product 1: Shampoo -->
+                <div class="product-card">
+                    <img src="../assets/images/shampooimage.png" alt="Shampoo" class="product-img">
+                    <h3>Shampoo</h3>
+                    <p class="price">R200.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Shampoo', 200)">Add to Cart</button>
+                </div>
+
+                <!-- Product 2: Conditioner -->
+                <div class="product-card">
+                    <img src="../assets/images/conditionerimage.png" alt="Conditioner" class="product-img">
+                    <h3>Conditioner</h3>
+                    <p class="price">R180.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Conditioner', 180)">Add to Cart</button>
+                </div>
+
+                <!-- Product 3: Hair Spray -->
+                <div class="product-card">
+                    <img src="../assets/images/hairsprayimage.png" alt="Hair Spray" class="product-img">
+                    <h3>Hair Spray</h3>
+                    <p class="price">R120.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Hair Spray', 120)">Add to Cart</button>
+                </div>
+
+                <!-- Product 4: Hair Oil -->
+                <div class="product-card">
+                    <img src="../assets/images/hairoilimage.png" alt="Hair Oil" class="product-img">
+                    <h3>Hair Oil</h3>
+                    <p class="price">R150.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Hair Oil', 150)">Add to Cart</button>
+                </div>
+
+                <!-- Product 5: Hair Butter -->
+                <div class="product-card">
+                    <img src="../assets/images/hairbutterimage.png" alt="Hair Butter" class="product-img">
+                    <h3>Hair Butter</h3>
+                    <p class="price">R160.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Hair Butter', 160)">Add to Cart</button>
+                </div>
+
+                <!-- Product 6: Hair Gel -->
+                <div class="product-card">
+                    <img src="../assets/images/hairgelimage.png" alt="Hair Gel" class="product-img">
+                    <h3>Hair Gel</h3>
+                    <p class="price">R110.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Hair Gel', 110)">Add to Cart</button>
+                </div>
+
+                <!-- Product 7: Hair Mist -->
+                <div class="product-card">
+                    <img src="../assets/images/hairmistimage.png" alt="Hair Mist" class="product-img">
+                    <h3>Hair Mist</h3>
+                    <p class="price">R130.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Hair Mist', 130)">Add to Cart</button>
+                </div>
+
+                <!-- Product 8: Edge Control -->
+                <div class="product-card">
+                    <img src="../assets/images/edgecontrolimage.png" alt="Edge Control" class="product-img">
+                    <h3>Edge Control</h3>
+                    <p class="price">R95.00</p>
+                    <button class="btn btn-primary" onclick="addToCart('Edge Control', 95)">Add to Cart</button>
+                </div>
+
             </div>
-            <div class="product-card">
-                <img src="" alt="Hair spray">
-                <h3>Hair spray</h3>
-                <p class="price">R120.00</p>
-                <button onclick="addToCart('Hair Spray', 12, 'product')">Add to Cart</button>
-            </div>
-</main>
+        </section>
+    </main>
+
+    <!-- Cart Storage Script -->
+    <script>
+        function addToCart(productName, price) {
+            // Get existing cart items from localStorage or create an empty array
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Add selected item
+            cart.push({ name: productName, price: price });
+            
+            // Save updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            alert(productName + ' (R' + price + '.00) added to cart!');
+        }
+    </script>
+<footer class="site-footer">
+    <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
+</footer>
 </body>
 </html>

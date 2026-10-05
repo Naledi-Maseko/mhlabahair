@@ -3,21 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mhlaba</title>
-    <link rel="icon" href="envelope-at-fill.svg" >
-     <link rel="icon" href="geo-alt-fill.svg" >
-      <link rel="icon" href="telephone-fill.svg" >
-<img src="icons/hair dresser.webp" alt="manager of branch"
+    <meta name="author" content="NalediMaseko">
+    <meta name="description" content="Get in touch with Mhlaba Hair via phone, email, or physical location.">
+    <title>Contact Us - Mhlaba Hair</title>
+    <!-- Relative path: steps out of pages/ into styles/ -->
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <header>
-        <h1>Contact Us</h1>
-    </header>
-    <main>
-        <i class="fas fa-phone"></i> <p>Phone number : 0820718945 </p>
-        <i class="fas fa-envelop"></i> <p>Email Address : info@mhlabahair.co.za </p>
-        <i class="fas fa-pin"></i> <p>Physical Address : 2577 Belarus avenue Standerton </p>
 
+    <!-- Header & Navigation at Top -->
+    <header class="main-header">
+        <h1>Contact Us</h1>
+        <nav class="navbar">
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html">About Us</a>
+            <a href="bookingspage.html">Bookings</a>
+            <a href="contactpage.html" class="active">Contact Us</a>
+            <a href="productpage.html">Shop</a>
+            <a href="calculatepage.html">Cart</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+        <section class="contact-section">
+            
+            <!-- Contact Info Card -->
+            <div class="contact-card">
+                <h2>Get In Touch</h2>
+                
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="icon-box">
+                            <img src="../assets/icons/telephone-fill.svg" alt="Phone Icon" class="contact-icon">
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Phone Number</span>
+                            <a href="tel:0820718945" class="contact-value">082 071 8945</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-box">
+                            <img src="../assets/icons/envelope-at-fill.svg" alt="Email Icon" class="contact-icon">
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Email Address</span>
+                            <a href="mailto:info@mhlabahair.co.za" class="contact-value">info@mhlabahair.co.za</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="icon-box">
+                            <img src="../assets/icons/geo-alt-fill.svg" alt="Location Icon" class="contact-icon">
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Physical Address</span>
+                            <p class="contact-value text-address">2577 Belarus Avenue,<br>Standerton</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </main>
+
+    <footer class="site-footer">
+        <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>

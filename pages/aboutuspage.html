@@ -3,19 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mhlaba Hair</title>
+    <meta name="author" content="NalediMaseko">
+    <meta name="description" content="Learn about the story, vision, and mission of Mhlaba Hair.">
+    <title>About Us - Mhlaba Hair</title>
+    <!-- Relative path: steps out of pages/ into styles/ -->
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <header>
+
+    <!-- Header & Navigation at Top -->
+    <header class="main-header">
         <h1>About Us</h1>
+        <nav class="navbar">
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html" class="active">About Us</a>
+            <a href="bookingspage.html">Bookings</a>
+            <a href="contactpage.html">Contact Us</a>
+            <a href="productpage.html">Shop</a>
+            <a href="calculatepage.html">Cart</a>
+        </nav>
     </header>
-    <main>
-        <h2>Our Story</h2>
-        <p>Founded in 2019 , Mhlaba Hair ("Mhlaba" meaning ground), is a luxury hair care brand that caters to every hair type. The salon provides specialized hair styling, transformations, and hair maintenance services designed to enhance clients' natural hair beauty and confident. It operates as a local community-driven grooming salon offering personalized client consultations, custom styling, and beauty care treatments.</p>
-         <h2>Vision</h2>
-         <p>o be a trusted local destination for professional hair transformations and personal care, fostering long-term relationships with clients through exceptional service, attention to detail, and a welcoming salon environment.</p>
-    <h2>Mission</h2>
-    <p>To create a unique and personalized experience for every client by delivering high-quality hair care and styling services that enhance natural beauty and build confidence.</p>
-</main>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+        <section class="about-section">
+            <article class="about-card">
+                <h2>Our Story</h2>
+                <p>Founded in 2019, Mhlaba Hair ("Mhlaba" meaning earth/ground) is a luxury hair care brand that caters to every hair type. The salon provides specialized hair styling, transformations, and hair maintenance services designed to enhance clients' natural beauty and confidence. It operates as a local, community-driven grooming salon offering personalized client consultations, custom styling, and beauty care treatments.</p>
+            </article>
+
+            <div class="vision-mission-grid">
+                <article class="info-card">
+                    <h2>Vision</h2>
+                    <p>To be a trusted local destination for professional hair transformations and personal care, fostering long-term relationships with clients through exceptional service, attention to detail, and a welcoming salon environment.</p>
+                </article>
+
+                <article class="info-card">
+                    <h2>Mission</h2>
+                    <p>To create a unique and personalized experience for every client by delivering high-quality hair care and styling services that enhance natural beauty and build confidence.</p>
+                </article>
+            </div>
+        </section>
+       <!-- Meet Our Team Section -->
+<section class="about-card">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+        <!-- Manager -->
+        <div class="team-card">
+            <img src="../assets/images/hairdresser.webp" alt="General Manager" class="manager-img">
+            <h3>Salon Manager</h3>
+            <p class="team-role">General Manager</p>
+        </div>
+
+        <!-- Receptionist -->
+        <div class="team-card">
+            <img src="../assets/images/receptionist.jpg" alt="Receptionist" class="receptionist-img">
+            <h3>Lead Receptionist</h3>
+            <p class="team-role">Client Care & Front Desk</p>
+        </div>
+
+        <!-- Stylist -->
+        <div class="team-card">
+            <img src="../assets/images/hairstylist.jpg" alt="Hair Stylist" class="stylist-img">
+            <h3>Senior Hair Stylist</h3>
+            <p class="team-role">Master Stylist</p>
+        </div>
+    </div>
+
+    <!-- Specialized Equipment Feature -->
+    <div class="equipment-card">
+        <img src="../assets/images/hairtrimmer.jpg" alt="Precision Hair Trimmer" class="trimmer-img">
+        <div class="equipment-info">
+            <h3>Specialized Precision Trimmer</h3>
+            <p>We use industry-leading specialized hair trimmers to ensure clean lines, precise edging, and split-end removal without damaging your natural hair structure.</p>
+        </div>
+    </div>
+</section>
+    </main>
+<footer class="site-footer">
+    <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
+</footer>
 </body>
 </html>

@@ -4,30 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="NalediMaseko">
-    <meta name="description" content="A sample HTML page showcasing tags for web development">
-    <title>Mhlaba Hair</title>
+    <meta name="description" content="Mhlaba Hair - Luxury Hair Care, Protective Styling, and Premium Salon Essentials">
+    <title>Mhlaba Hair | Luxury Salon & Hair Care</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
- <header>
-    <h1>Welcome to Mhlaba Hair</h1>
-    <nav>
-            <a href="homepage.html">Home</a>
-             <a href="aboutuspage.html">About Us</a>
+
+    <header class="main-header">
+        
+        <h1>Welcome to Mhlaba Hair</h1>
+        <nav class="navbar">
+            <a href="homepage.html" class="active">Home</a>
+            <a href="aboutuspage.html">About Us</a>
             <a href="bookingspage.html">Bookings</a>
             <a href="contactpage.html">Contact Us</a>
             <a href="productpage.html">Shop</a>
-             <a href="calculatepage.html">Cart</a>
-    </nav>
- </header>  
- <main>
-    <h2>Specials</h2>
-    <h3>Currently</h3>
-    <p>Braids with besties : bring your best friend and get 50% off <br>
-        SPECIAL ENDS on the 15th of September 2026</p>
-     <p>Bobs: get 20% of every bob<br>
-       SPECIAL ENDS on the 5th of October 2026</p>
-<h3>Upcoming</h3>
-<p></p>
- </main> 
+            <a href="calculatepage.html">Cart</a>
+        </nav>
+    </header> 
+
+    <!-- Logo Section placed under navigation -->
+    <div class="logo-container">
+        <img src="../assets/images/logo1.1image.png" alt="Mhlaba Hair Logo" class="site-logo">
+    </div>
+
+    <main class="content-container">
+
+        <!-- HERO BANNER SECTION -->
+        <section class="hero-card">
+            <div class="hero-content">
+                <h2>Luxury Hair Care & Precision Styling</h2>
+                <p>From protective braids and custom wig installs to restorative scalp treatments, we give your hair the royal care it deserves.</p>
+                <a href="bookingspage.html" class="btn btn-primary hero-btn">Book Appointment</a>
+            </div>
+            <div class="hero-image-wrapper">
+                <img src="../assets/images/image of the salon.jpg" alt="Mhlaba Hair Salon Interior" class="hero-img">
+            </div>
+        </section>
+
+        <!-- FEATURED SERVICES PREVIEW -->
+        <section class="services-preview-section">
+            <h2 class="section-title">Popular Services</h2>
+            <div class="services-grid">
+                <article class="service-card">
+                    <img src="../assets/images/hair getting braided.webp" alt="Braids and Protective Styles">
+                    <h3>Braids & Protective Styles</h3>
+                    <p>Knotless braids, box braids, and tailored protective styling for natural hair growth.</p>
+                </article>
+
+                <article class="service-card">
+                    <img src="../assets/images/installing wig.webp" alt="Custom Wig Installation">
+                    <h3>Custom Wig Installs</h3>
+                    <p>Flawless lace melts, custom fitting, and long-lasting wig customization.</p>
+                </article>
+
+                <article class="service-card">
+                    <img src="../assets/images/hair getting washed.jpg" alt="Restorative Hair Wash">
+                    <h3>Wash & Restorative Care</h3>
+                    <p>Deep conditioning treatments, scalp care, and blowouts using premium hair essentials.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- SPECIALS SECTION -->
+        <section class="specials-section">
+            <h2 class="section-title">Specials</h2>
+            
+            <h3>Current Specials</h3>
+            <div class="specials-grid">
+                <article class="special-card">
+                    <h4>Braids with Besties</h4>
+                    <p>Bring your best friend and get 50% off on matching braid styles!</p>
+                    <span class="expiry-date">SPECIAL ENDS: 31st of October 2026</span>
+                </article>
+
+                <article class="special-card">
+                    <h4>Bobs Special</h4>
+                    <p>Get 20% off every bob haircut, trim, and styling package.</p>
+                    <span class="expiry-date">SPECIAL ENDS: 15th of November 2026</span>
+                </article>
+            </div>
+
+            <h3>Upcoming Specials</h3>
+            <p class="no-specials">Stay tuned! New seasonal promotions are dropping soon.</p>
+        </section>
+
+    </main> 
+
+    <footer class="site-footer">
+        <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
+    </footer>
+
 </body>
 </html>

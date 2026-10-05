@@ -3,62 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mhlaba Hair</title>
+    <meta name="author" content="NalediMaseko">
+    <meta name="description" content="Book your appointment with Mhlaba Hair.">
+    <title>Bookings - Mhlaba Hair</title>
+    <!-- Relative path: steps out of pages/ into styles/ -->
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <header>
-        <H1>Booking Your Appoointment </H1>
-    </header>
-    <main>
-        <form action="/js/feedback.js" method="post">
-            <fieldset>
-                <legend>Bookings</legend>
-                <div>
-                    <label for="fullname">Full Name</label>
-                    <input type="text" id="fullname" name="fullname">
-                </div>
-                 <div>
-            <label for="email"> Email</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-                  <div>
-            <label for="phone"> Phone Number</label>
-            <input type="tel" id="phone" name="phone" pattern="{0-9}{10}" placeholder="e.g.,0123456789">            
-        </div>
-        <div>
-            <label for="dob">Date of Birth</label>
-            <input type="date" id="dob" name="dob">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input 
-            type="password"
-            id="password"
-            name="password"
-            min length="8"
-            pattern="(?=,*/d)(?=.*[a-z]).{8,}"
-            aria-describedby="password-help"
-            required >
-        </div>
-        <div>
-            <label for="style"> Hair Style</label>
-            <input type="style" id="colour" name="style">
-        </div>
-        <div>
-            <label for="comments">Comments</label>
-            <textarea id="comments" name="comments" rows="5" cols="40"> </textarea>
-        </div>
-        <div> 
-            <label for="newletter"> Subscribe</label>
-            <input type="checkbox" id="newletter" name="newletter" checked>
-        </div>
-        </fieldset>
-        <button type="submit">Submit Feedback</button>
-        <button type="reset"> Clear Forum</button>
-    </form>
 
-            </fieldset>
-        </form>
+    <!-- Header & Navigation at Top -->
+    <header class="main-header">
+        <h1>Book Your Appointment</h1>
+        <nav class="navbar">
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html">About Us</a>
+            <a href="bookingspage.html" class="active">Bookings</a>
+            <a href="contactpage.html">Contact Us</a>
+            <a href="productpage.html">Shop</a>
+            <a href="calculatepage.html">Cart</a>
+        </nav>
+    </header>
+
+    <!-- Main Form Section -->
+    <main class="content-container">
+        <section class="form-card">
+            <h2>Appointment Booking Form</h2>
+            <form action="#" method="post" class="booking-form">
+                <fieldset>
+                    <legend>Personal & Service Details</legend>
+                    
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="e.g., 0123456789" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Account Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            minlength="8" 
+                            pattern="(?=.*\d)(?=.*[a-z]).{8,}" 
+                            placeholder="At least 8 chars (1 letter & 1 number)" 
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="style">Hair Style / Service</label>
+                        <select id="style" name="style" required>
+                            <option value="" disabled selected>Select a service</option>
+                            <option value="jumbo-braids">Jumbo Braids</option>
+                            <option value="medium-braids">Medium Braids</option>
+                            <option value="smedium-braids">Small-Medium Braids</option>
+                            <option value="small-braids">Small Braids</option>
+                            <option value="fulani-braids">Fulani Braids</option>
+                            <option value="Trim">Cut & Style</option>
+                            <option value="wig-install">Wig Installation</option>
+                            <option value="flip-sewin">Flip over sew in</option>
+                            <option value="onep-sewin">One part sew in</option>
+                            <option value="twop-sewin">Two part sew in</option>
+                            <option value="threep-sewin">Three part sew in</option>
+                            <option value="wash-blow">Wash & Blow Dry</option>
+                            <option value="mint-treatment">Peppermint Treatment</option>
+                            <option value="steam-treatment">Steam Treatment</option>
+                            <option value="unbraid">Undo Braids</option>
+                        </select>
+                    </div>
+                    <div class="form-group upload-group">
+        <label for="style-reference">
+            Upload Style Reference <span class="optional-tag">(If your style is not listed)</span>
+        </label>
+        <input 
+            type="file" 
+            id="style-reference" 
+            name="style_reference" 
+            accept="image/png, image/jpeg, image/webp"
+            class="file-input"
+        >
+        <small class="help-text">Accepted formats: JPG, PNG, WEBP (Max: 5MB)</small>
+    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comments / Special Requests</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="Any specific notes for your stylist..."></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter">Subscribe to our newsletter & special offers</label>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Booking</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </section>
     </main>
+<footer class="site-footer">
+    <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
+</footer>
 </body>
 </html>
