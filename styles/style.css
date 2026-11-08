@@ -8,23 +8,119 @@
 }
 
 :root {
-    --primary-color: #3D2314;      /* Deep Espresso / Dark Mocha */
-    --accent-color: #C59B27;       /* Warm Gold / Amber Accent */
-    --background-color: #FAF6F0;   /* Light Warm Cream / Champagne */
-    --text-color: #211510;         /* Soft Dark Espresso Text */
-    --card-bg: #ffffff;            /* Clean White Card Background */
-    --highlight-color: #E8D3C3;    /* Soft Blush Nude */
-    --blue-accent: #B08D57;        /* Warm Bronze Accent */
+    --primary-color: #3D2314;
+    --accent-color: #C59B27;
+    --background-color: #FAF6F0;
+    --text-color: #211510;
+    --card-bg: #ffffff;
+    --highlight-color: #E8D3C3;
+    --blue-accent: #B08D57;
     --font-heading: 'Georgia', serif;
     --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --content-max-width: 1100px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --focus-ring: rgba(197, 155, 39, 0.35);
+    --shadow-soft: 0 4px 10px rgba(61, 35, 20, 0.08);
+    --shadow-strong: 0 8px 18px rgba(61, 35, 20, 0.12);
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: clamp(0.96rem, 0.9rem + 0.28vw, 1.08rem);
+    line-height: 1.65;
     background-color: var(--background-color);
     color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+    color: var(--primary-color);
+    margin: 0 0 0.8rem;
+}
+
+h1 {
+    font-size: clamp(1.8rem, 1.5rem + 2vw, 3rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.3rem);
+}
+
+h3 {
+    font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+}
+
+h4 {
+    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+    font-size: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+    transition: background-color var(--transition-medium), border-color var(--transition-medium),
+        box-shadow var(--transition-medium), color var(--transition-medium),
+        transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+a:active {
+    opacity: 0.85;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(197, 155, 39, 0.18);
+}
+
+.content-container {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: clamp(1rem, 2vw, 2rem);
 }
 
 /* ==========================================================================
@@ -547,12 +643,19 @@ body {
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.8rem 0.85rem;
     border: 1px solid #d1c2b5;
     border-radius: 4px;
     font-family: inherit;
-    font-size: 0.95rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 0.96rem;
+    background-color: #fff;
+    color: var(--text-color);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: #b89e7d;
 }
 
 .form-group input:focus,
@@ -560,7 +663,7 @@ body {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.25);
+    box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.22);
 }
 
 .checkbox-group {
@@ -595,7 +698,8 @@ body {
     color: #ffffff;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus-visible {
     background-color: var(--accent-color);
     color: var(--primary-color);
 }
@@ -605,8 +709,10 @@ body {
     color: var(--primary-color);
 }
 
-.btn-secondary:hover {
-    background-color: #dbbfab;
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+    background-color: #d9b497;
+    color: var(--primary-color);
 }
 
 /* ==========================================================================
@@ -833,8 +939,12 @@ a.contact-value:hover {
     justify-content: center;
 }
 
-.remove-btn:hover {
+.remove-btn:hover,
+.remove-btn:focus-visible,
+.remove-btn:active {
     background: #962d22;
+    transform: scale(1.05);
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
 }
 
 .empty-cart-msg {
@@ -1006,4 +1116,144 @@ a.contact-value:hover {
     .team-role {
         font-size: 1rem !important;
     }
+}
+
+.navbar a,
+.btn,
+.contact-value,
+.product-card,
+.service-card,
+.special-card,
+.team-card,
+.about-card,
+.info-card,
+.form-card,
+.cart-section,
+.contact-card {
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-medium), background-color var(--transition-medium),
+        color var(--transition-medium);
+}
+
+.navbar a:hover,
+.navbar a:focus-visible,
+.navbar a:active {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.navbar a:focus-visible,
+.navbar a:active {
+    box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.18);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.8rem 1.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible,
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(61, 35, 20, 0.08);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+    background-color: #d9b497;
+    color: var(--primary-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 0.85rem;
+    border: 1px solid #d1c2b5;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.96rem;
+    background-color: #fff;
+    color: var(--text-color);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: #b89e7d;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.22);
+}
+
+.product-card,
+.service-card,
+.special-card,
+.team-card,
+.about-card,
+.info-card,
+.contact-card,
+.cart-section,
+.form-card {
+    box-shadow: var(--shadow-soft);
+}
+
+.product-card:hover,
+.service-card:hover,
+.special-card:hover,
+.team-card:hover,
+.about-card:hover,
+.info-card:hover,
+.contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-strong);
+}
+
+.product-card:focus-within,
+.service-card:focus-within,
+.special-card:focus-within,
+.team-card:focus-within {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+.contact-value:hover,
+.contact-value:focus-visible {
+    color: var(--accent-color);
+    text-decoration: underline;
 }
