@@ -3,74 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="NalediMaseko">
-    <meta name="description" content="Get in touch with Mhlaba Hair via phone, email, or physical location.">
-    <title>Contact Us - Mhlaba Hair</title>
-    <!-- Relative path: steps out of pages/ into styles/ -->
+    <title>Contact | We De</title>
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-
-    <!-- Header & Navigation at Top -->
     <header class="main-header">
-        <h1>Contact Us</h1>
-        <nav class="navbar">
-            <a href="homepage.html">Home</a>
-            <a href="aboutuspage.html">About Us</a>
-            <a href="bookingspage.html">Bookings</a>
-            <a href="contactpage.html" class="active">Contact Us</a>
-            <a href="productpage.html">Shop</a>
-            <a href="calculatepage.html">Cart</a>
+        <div class="header-brand">
+            <img src="../images/logo.png" alt="Business logo" class="nav-logo">
+            <h1>We De</h1>
+        </div>
+
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="../index.html">Home</a>
+            <a href="../about.html">About</a>
+            <a href="../services.html">Services</a>
+            <a href="../products.html">Products</a>
+            <a href="contactpage.html" class="active">Contact</a>
+            <a href="enquirypage.html">Enquiry</a>
+            <a href="../cart.html">Cart</a>
         </nav>
     </header>
 
-    <!-- Main Content Container -->
     <main class="content-container">
-        <section class="contact-section">
-            
-            <!-- Contact Info Card -->
-            <div class="contact-card">
-                <h2>Get In Touch</h2>
-                
-                <div class="contact-list">
-                    <div class="contact-item">
-                        <div class="icon-box">
-                            <img src="../assets/icons/telephone-fill.svg" alt="Phone Icon" class="contact-icon">
-                        </div>
-                        <div class="contact-details">
-                            <span class="contact-label">Phone Number</span>
-                            <a href="tel:0820718945" class="contact-value">082 071 8945</a>
-                        </div>
+        <section class="form-card">
+            <h2>Contact Us</h2>
+
+            <form id="contactForm" class="booking-form" novalidate>
+                <fieldset>
+                    <legend>Send a Message</legend>
+
+                    <div class="form-group">
+                        <label for="contactName">Your Name <span aria-label="required">*</span></label>
+                        <input type="text" id="contactName" name="contactName" placeholder="Your full name" required>
                     </div>
 
-                    <div class="contact-item">
-                        <div class="icon-box">
-                            <img src="../assets/icons/envelope-at-fill.svg" alt="Email Icon" class="contact-icon">
-                        </div>
-                        <div class="contact-details">
-                            <span class="contact-label">Email Address</span>
-                            <a href="mailto:info@mhlabahair.co.za" class="contact-value">info@mhlabahair.co.za</a>
-                        </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address <span aria-label="required">*</span></label>
+                        <input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" required>
                     </div>
 
-                    <div class="contact-item">
-                        <div class="icon-box">
-                            <img src="../assets/icons/geo-alt-fill.svg" alt="Location Icon" class="contact-icon">
-                        </div>
-                        <div class="contact-details">
-                            <span class="contact-label">Physical Address</span>
-                            <p class="contact-value text-address">2577 Belarus Avenue,<br>Standerton</p>
-                        </div>
+                    <div class="form-group">
+                        <label for="messageType">Message Type <span aria-label="required">*</span></label>
+                        <select id="messageType" name="messageType" required>
+                            <option value="">Select a category</option>
+                            <option value="General Enquiry">General Enquiry</option>
+                            <option value="Booking Request">Booking Request</option>
+                            <option value="Product Question">Product Question</option>
+                            <option value="Service Support">Service Support</option>
+                            <option value="Sponsorship">Sponsorship</option>
+                        </select>
                     </div>
-                </div>
-            </div>
 
+                    <div class="form-group">
+                        <label for="contactMessage">Message <span aria-label="required">*</span></label>
+                        <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Write your message here..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="reset" class="btn btn-secondary">Clear</button>
+                    </div>
+
+                    <p id="contactStatus" class="form-feedback" aria-live="polite"></p>
+
+                    <a id="mailtoLink" class="btn btn-secondary" style="display:none; margin-top:1rem;" target="_blank" rel="noopener">
+                        Send Email
+                    </a>
+                </fieldset>
+            </form>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved.</p>
-    </footer>
+    <script>
+        const contactForm = document.getElementById('contactForm');
+        const contactStatus = document.getElementById('contactStatus');
+        const mailtoLink = document.getElementById('mailtoLink');
 
+        const recipientEmail = 'hello@yourbusiness.com';
+
+        function setContactStatus(message, isError = false) {
+            contactStatus.textContent = message;
+            contactStatus.style.color = isError ? '#9b2c2c' : '#1f5f3b';
+            contactStatus.style.marginTop = '1rem';
+            contactStatus.style.fontWeight = '600';
+            contactStatus.style.lineHeight = '1.5';
+        }
+
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const messageType = document.getElementById('messageType').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!name || name.length < 2) {
+                setContactStatus('Please enter your full name.', true);
+                return;
+            }
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setContactStatus('Please enter a valid email address.', true);
+                return;
+            }
+
+            if (!messageType) {
+                setContactStatus('Please choose the type of message you are sending.', true);
+                return;
+            }
+
+            if (!message || message.length < 10) {
+                setContactStatus('Please write a longer message so we can assist you properly.', true);
+                return;
+            }
+
+            const subject = `[${messageType}] Message from ${name}`;
+            const emailBody = [
+                `Name: ${name}`,
+                `Email: ${email}`,
+                `Message Type: ${messageType}`,
+                '',
+                'Message:',
+                message
+            ].join('\n');
+
+            const mailto = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+
+            mailtoLink.href = mailto;
+            mailtoLink.style.display = 'inline-flex';
+            mailtoLink.textContent = 'Open Email Client';
+
+            setContactStatus('Your message is ready to send. Click the email button below to continue.');
+        });
+    </script>
 </body>
 </html>
