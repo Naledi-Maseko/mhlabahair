@@ -24,7 +24,7 @@
 </head>
 <body>
 
-    <!-- Header & Navigation at Top -->
+    <!-- Header and main navigation for the shop page -->
     <header class="main-header">
         <div class="header-brand">
             <img src="../assets/images/logo1.0.jpg" alt="Mhlaba Hair logo" class="nav-logo">
@@ -40,12 +40,13 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main content area for the product catalog -->
     <main class="content-container">
         <section class="products-section">
             <h2>Our Haircare Products</h2>
             <p class="subtitle">Responsibly sourced and traditionally created for every hair type.</p>
 
+            <!-- Product controls: search, filter, and sorting -->
             <div class="product-toolbar">
                 <label class="search-field">
                     <span>Search</span>
@@ -73,14 +74,17 @@
                 </label>
             </div>
 
+            <!-- Dynamic product grid populated by JavaScript -->
             <div class="product-grid" data-product-grid></div>
         </section>
     </main>
 
+    <!-- Footer section -->
     <footer class="site-footer">
         <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved.</p>
     </footer>
 
+    <!-- Shared site script for interactive product functionality -->
     <script src="../js/site.js"></script>
 </body>
 </html>
