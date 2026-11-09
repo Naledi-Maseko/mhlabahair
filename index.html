@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mhlaba Hair | Redirecting</title>
+    <meta name="description" content="Mhlaba Hair luxury hair salon website. Redirecting to the homepage.">
+    <style>
+        :root {
+            --brown: #3D2314;
+            --gold: #D4AF6A;
+            --cream: #f9f3ee;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--cream), #efe2d4);
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--brown);
+        }
+
+        .redirect-box {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid rgba(212,175,106,0.6);
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(61,35,20,0.12);
+            padding: 48px 32px;
+            text-align: center;
+            max-width: 560px;
+            width: min(90vw, 560px);
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        p {
+            margin: 0 0 24px;
+            line-height: 1.6;
+            color: rgba(61,35,20,0.8);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--brown);
+            color: var(--white);
+            padding: 14px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .meta-note {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: rgba(61,35,20,0.7);
+        }
+    </style>
+    <meta http-equiv="refresh" content="2; url=pages/homepage.html">
+</head>
+<body>
+    <main class="redirect-box">
+        <h1>Mhlaba Hair</h1>
+        <p>Welcome to our salon website. You are being redirected to the homepage.</p>
+        <a class="btn" href="pages/homepage.html">Go to homepage</a>
+        <div class="meta-note">If you are not redirected automatically, click the button above.</div>
+    </main>
+</body>
+</html>
