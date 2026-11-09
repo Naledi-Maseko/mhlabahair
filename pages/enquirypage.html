@@ -24,19 +24,15 @@
 </head>
 <body>
     <header class="main-header">
-        <div class="header-brand">
-            <img src="../images/logo.png" alt="Business logo" class="nav-logo">
-            <h1>We De</h1>
-        </div>
-
+        <h1>Mhlaba Hair</h1>
         <nav class="navbar" aria-label="Main navigation">
-            <a href="../index.html">Home</a>
-            <a href="../about.html">About</a>
-            <a href="../services.html">Services</a>
-            <a href="../products.html">Products</a>
-            <a href="../contactpage.html">Contact</a>
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html">About Us</a>
+            <a href="bookingspage.html">Bookings</a>
+            <a href="contactpage.html">Contact Us</a>
+            <a href="productpage.html">Shop</a>
             <a href="enquirypage.html" class="active">Enquiry</a>
-            <a href="../cart.html">Cart</a>
+            <a href="calculatepage.html">Cart</a>
         </nav>
     </header>
 
@@ -44,7 +40,7 @@
         <section class="form-card">
             <h2>Make an Inquiry</h2>
 
-            <form id="enquiryForm" class="booking-form" novalidate>
+            <form id="enquiryForm" class="booking-form" action="https://example.com/enquiry" method="post" novalidate>
                 <fieldset>
                     <legend>Inquiry Details</legend>
 
@@ -57,31 +53,37 @@
                             <option value="volunteer">Volunteer Interest</option>
                             <option value="sponsorship">Sponsorship / Partnership</option>
                         </select>
+                        <p class="field-error" id="inquiryTypeError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="fullName">Full Name <span aria-label="required">*</span></label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+                        <input type="text" id="fullName" name="fullName" placeholder="Your full name" minlength="2" required>
+                        <p class="field-error" id="fullNameError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address <span aria-label="required">*</span></label>
                         <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        <p class="field-error" id="emailError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone Number <span aria-label="required">*</span></label>
-                        <input type="tel" id="phone" name="phone" placeholder="e.g. 021 123 4567" required>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9+()\s-]{7,20}" placeholder="e.g. 021 123 4567" required>
+                        <p class="field-error" id="phoneError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="budget">Estimated Budget (optional)</label>
                         <input type="number" id="budget" name="budget" min="0" step="50" placeholder="e.g. 250">
+                        <p class="field-error" id="budgetError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="message">Project / Enquiry Details <span aria-label="required">*</span></label>
-                        <textarea id="message" name="message" rows="6" placeholder="Tell us what you need, when you need it, and any details you want to share." required></textarea>
+                        <textarea id="message" name="message" rows="6" placeholder="Tell us what you need, when you need it, and any details you want to share." minlength="10" required></textarea>
+                        <p class="field-error" id="messageError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-actions">
@@ -99,6 +101,28 @@
         const enquiryForm = document.getElementById('enquiryForm');
         const enquiryMessage = document.getElementById('enquiryMessage');
 
+        const errorMap = {
+            inquiryType: 'inquiryTypeError',
+            fullName: 'fullNameError',
+            email: 'emailError',
+            phone: 'phoneError',
+            budget: 'budgetError',
+            message: 'messageError'
+        };
+
+        function setFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorMap[fieldId]);
+
+            if (field) {
+                field.setAttribute('aria-invalid', message ? 'true' : 'false');
+            }
+
+            if (error) {
+                error.textContent = message || '';
+            }
+        }
+
         function setFeedback(message, isError = false) {
             enquiryMessage.textContent = message;
             enquiryMessage.style.color = isError ? '#9b2c2c' : '#1f5f3b';
@@ -107,73 +131,88 @@
             enquiryMessage.style.lineHeight = '1.5';
         }
 
-        function buildInquiryResponse(type, name, budget, message) {
-            const estimatedBudget = Number(budget);
-
-            if (type === 'service') {
-                const estimate = estimatedBudget > 0 ? estimatedBudget : 250;
-                const availability = estimatedBudget > 0 ? 'within 5–7 business days' : 'within 1 week';
-                return `Thank you, ${name}. Your service enquiry has been received. Estimated starting cost: $${estimate}. Availability: ${availability}. We will follow up with a tailored quote and project timeline based on your details.`;
-            }
-
-            if (type === 'product') {
-                const estimate = estimatedBudget > 0 ? estimatedBudget : 120;
-                const stockText = estimatedBudget > 0 ? 'limited stock available' : 'availability is being checked';
-                return `Hi ${name}, your product enquiry is noted. Estimated item range: $${estimate}. Current status: ${stockText}. We will confirm specifications and availability before finalising the order.`;
-            }
-
-            if (type === 'volunteer') {
-                return `Thank you, ${name}. We appreciate your interest in volunteering. Your application has been received and we will contact you shortly to discuss available roles, shifts, and onboarding details.`;
-            }
-
-            if (type === 'sponsorship') {
-                return `Thank you, ${name}. Your sponsorship enquiry has been received. We will review your request and share package options, sponsorship benefits, and next steps within 2 working days.`;
-            }
-
-            return `Thank you, ${name}. We have received your enquiry and will contact you shortly.`;
-        }
-
-        enquiryForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
+        function validateEnquiryForm() {
+            let isValid = true;
             const formData = new FormData(enquiryForm);
             const inquiryType = formData.get('inquiryType')?.toString().trim() || '';
             const name = formData.get('fullName')?.toString().trim() || '';
             const email = formData.get('email')?.toString().trim() || '';
             const phone = formData.get('phone')?.toString().trim() || '';
-            const budget = formData.get('budget')?.toString().trim() || '';
             const message = formData.get('message')?.toString().trim() || '';
+            const budget = formData.get('budget')?.toString().trim() || '';
 
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            Object.keys(errorMap).forEach((key) => setFieldError(key, ''));
 
             if (!inquiryType) {
-                setFeedback('Please select the type of enquiry you want to send.', true);
-                return;
+                setFieldError('inquiryType', 'Please select the type of enquiry.');
+                isValid = false;
             }
 
             if (!name || name.length < 2) {
-                setFeedback('Please enter your full name.', true);
-                return;
+                setFieldError('fullName', 'Please enter your full name.');
+                isValid = false;
             }
 
-            if (!email || !emailPattern.test(email)) {
-                setFeedback('Please enter a valid email address.', true);
-                return;
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setFieldError('email', 'Please enter a valid email address.');
+                isValid = false;
             }
 
-            if (!phone || phone.length < 7) {
-                setFeedback('Please enter a valid phone number.', true);
-                return;
+            if (!phone || !/^[0-9+()\s-]{7,20}$/.test(phone)) {
+                setFieldError('phone', 'Please enter a valid phone number.');
+                isValid = false;
+            }
+
+            if (budget && Number(budget) < 0) {
+                setFieldError('budget', 'Budget cannot be negative.');
+                isValid = false;
             }
 
             if (!message || message.length < 10) {
-                setFeedback('Please provide a few more details so we can help you properly.', true);
+                setFieldError('message', 'Please provide at least 10 characters of detail.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        enquiryForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            if (!validateEnquiryForm()) {
+                setFeedback('Please correct the highlighted fields before submitting.', true);
                 return;
             }
 
-            const response = buildInquiryResponse(inquiryType, name, budget, message);
-            setFeedback(response, false);
-            enquiryForm.reset();
+            const formData = new FormData(enquiryForm);
+            const submitButton = enquiryForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            setFeedback('Sending your enquiry...');
+
+            try {
+                const endpoint = enquiryForm.getAttribute('action');
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const responseMessage = `Thank you, ${formData.get('fullName')}. Your enquiry has been received successfully and our team will contact you soon.`;
+                setFeedback(responseMessage, false);
+                enquiryForm.reset();
+            } catch (error) {
+                const fallbackMessage = `Thank you, ${formData.get('fullName')}. Your enquiry has been prepared and is ready to send. Please use the email option if the server is unavailable.`;
+                setFeedback(fallbackMessage, false);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
         });
     </script>
 </body>

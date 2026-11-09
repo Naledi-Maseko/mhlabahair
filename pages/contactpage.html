@@ -56,6 +56,7 @@
             <a href="bookingspage.html">Bookings</a>
             <a href="contactpage.html" class="active">Contact Us</a>
             <a href="productpage.html">Shop</a>
+            <a href="enquirypage.html">Enquiry</a>
             <a href="calculatepage.html">Cart</a>
         </nav>
     </header>
@@ -97,18 +98,20 @@
         <section class="form-card">
             <h2>Contact Us</h2>
 
-            <form id="contactForm" class="booking-form" novalidate>
+            <form id="contactForm" class="booking-form" action="https://example.com/contact" method="post" novalidate>
                 <fieldset>
                     <legend>Send a Message</legend>
 
                     <div class="form-group">
                         <label for="contactName">Your Name <span aria-label="required">*</span></label>
-                        <input type="text" id="contactName" name="contactName" placeholder="Your full name" required>
+                        <input type="text" id="contactName" name="contactName" placeholder="Your full name" minlength="2" required>
+                        <p class="field-error" id="contactNameError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="contactEmail">Email Address <span aria-label="required">*</span></label>
                         <input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" required>
+                        <p class="field-error" id="contactEmailError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
@@ -121,11 +124,13 @@
                             <option value="Service Support">Service Support</option>
                             <option value="Sponsorship">Sponsorship</option>
                         </select>
+                        <p class="field-error" id="messageTypeError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="contactMessage">Message <span aria-label="required">*</span></label>
-                        <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Write your message here..." required></textarea>
+                        <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Write your message here..." minlength="10" required></textarea>
+                        <p class="field-error" id="contactMessageError" aria-live="polite"></p>
                     </div>
 
                     <div class="form-actions">
@@ -147,8 +152,27 @@
         const contactForm = document.getElementById('contactForm');
         const contactStatus = document.getElementById('contactStatus');
         const mailtoLink = document.getElementById('mailtoLink');
+        const recipientEmail = 'hello@mhlaba-hair.co.za';
 
-        const recipientEmail = 'hello@yourbusiness.com';
+        const errorMap = {
+            contactName: 'contactNameError',
+            contactEmail: 'contactEmailError',
+            messageType: 'messageTypeError',
+            contactMessage: 'contactMessageError'
+        };
+
+        function setFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorMap[fieldId]);
+
+            if (field) {
+                field.setAttribute('aria-invalid', message ? 'true' : 'false');
+            }
+
+            if (error) {
+                error.textContent = message || '';
+            }
+        }
 
         function setContactStatus(message, isError = false) {
             contactStatus.textContent = message;
@@ -158,51 +182,106 @@
             contactStatus.style.lineHeight = '1.5';
         }
 
-        contactForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
+        function validateContactForm() {
+            let isValid = true;
             const name = document.getElementById('contactName').value.trim();
             const email = document.getElementById('contactEmail').value.trim();
             const messageType = document.getElementById('messageType').value.trim();
             const message = document.getElementById('contactMessage').value.trim();
 
+            setFieldError('contactName', '');
+            setFieldError('contactEmail', '');
+            setFieldError('messageType', '');
+            setFieldError('contactMessage', '');
+
             if (!name || name.length < 2) {
-                setContactStatus('Please enter your full name.', true);
-                return;
+                setFieldError('contactName', 'Please enter your full name.');
+                isValid = false;
             }
 
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                setContactStatus('Please enter a valid email address.', true);
-                return;
+                setFieldError('contactEmail', 'Please enter a valid email address.');
+                isValid = false;
             }
 
             if (!messageType) {
-                setContactStatus('Please choose the type of message you are sending.', true);
-                return;
+                setFieldError('messageType', 'Please choose the type of message.');
+                isValid = false;
             }
 
             if (!message || message.length < 10) {
-                setContactStatus('Please write a longer message so we can assist you properly.', true);
+                setFieldError('contactMessage', 'Message must contain at least 10 characters.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        contactForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            if (!validateContactForm()) {
+                setContactStatus('Please correct the highlighted fields and try again.', true);
                 return;
             }
 
-            const subject = `[${messageType}] Message from ${name}`;
-            const emailBody = [
-                `Name: ${name}`,
-                `Email: ${email}`,
-                `Message Type: ${messageType}`,
-                '',
-                'Message:',
-                message
-            ].join('\n');
+            const formData = new FormData(contactForm);
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            setContactStatus('Sending your message...');
 
-            const mailto = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            try {
+                const endpoint = contactForm.getAttribute('action');
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
 
-            mailtoLink.href = mailto;
-            mailtoLink.style.display = 'inline-flex';
-            mailtoLink.textContent = 'Open Email Client';
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-            setContactStatus('Your message is ready to send. Click the email button below to continue.');
+                const subject = `[${formData.get('messageType')}] Message from ${formData.get('contactName')}`;
+                const emailBody = [
+                    `Name: ${formData.get('contactName')}`,
+                    `Email: ${formData.get('contactEmail')}`,
+                    `Message Type: ${formData.get('messageType')}`,
+                    '',
+                    'Message:',
+                    formData.get('contactMessage')
+                ].join('\n');
+
+                const mailto = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                mailtoLink.href = mailto;
+                mailtoLink.style.display = 'inline-flex';
+                mailtoLink.textContent = 'Open Email Client';
+
+                setContactStatus('Your message was submitted successfully. You can also send it using the email option below.');
+                contactForm.reset();
+            } catch (error) {
+                const subject = `[${formData.get('messageType')}] Message from ${formData.get('contactName')}`;
+                const emailBody = [
+                    `Name: ${formData.get('contactName')}`,
+                    `Email: ${formData.get('contactEmail')}`,
+                    `Message Type: ${formData.get('messageType')}`,
+                    '',
+                    'Message:',
+                    formData.get('contactMessage')
+                ].join('\n');
+
+                const mailto = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                mailtoLink.href = mailto;
+                mailtoLink.style.display = 'inline-flex';
+                mailtoLink.textContent = 'Send Email Instead';
+
+                setContactStatus('Your message is ready to send. The form could not reach the server, so the email option was prepared for you.', true);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
         });
     </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
