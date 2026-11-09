@@ -261,14 +261,30 @@ function initMap() {
   const mapContainer = document.getElementById('map');
   if (!mapContainer || typeof L === 'undefined') return;
 
-  const map = L.map('map', { scrollWheelZoom: false }).setView([-26.2041, 28.0473], 12);
+  const map = L.map('map', {
+    scrollWheelZoom: false,
+    zoomControl: true
+  }).setView([-26.2041, 28.0473], 12);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+  const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd',
+    maxZoom: 20,
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+  });
+
+  tileLayer.addTo(map);
 
   L.marker([-26.2041, 28.0473]).addTo(map)
     .bindPopup('Mhlaba Hair Studio<br>Johannesburg, South Africa');
+
+  map.invalidateSize();
+
+  tileLayer.on('tileerror', () => {
+    const fallback = document.createElement('div');
+    fallback.className = 'map-fallback';
+    fallback.innerHTML = '<p>Map tiles are temporarily unavailable. Please try again later.</p>';
+    mapContainer.appendChild(fallback);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
