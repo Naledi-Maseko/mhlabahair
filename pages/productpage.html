@@ -30,93 +30,41 @@
             <h2>Our Haircare Products</h2>
             <p class="subtitle">Responsibly sourced and traditionally created for every hair type.</p>
 
-            <div class="product-grid">
-                
-                <!-- Product 1: Shampoo -->
-                <div class="product-card">
-                    <img src="../assets/images/shampooimage.png" alt="Shampoo" class="product-img">
-                    <h3>Shampoo</h3>
-                    <p class="price">R200.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Shampoo', 200)">Add to Cart</button>
-                </div>
+            <div class="product-toolbar">
+                <label class="search-field">
+                    <span>Search</span>
+                    <input id="productSearch" type="search" placeholder="Find a product...">
+                </label>
 
-                <!-- Product 2: Conditioner -->
-                <div class="product-card">
-                    <img src="../assets/images/conditionerimage.png" alt="Conditioner" class="product-img">
-                    <h3>Conditioner</h3>
-                    <p class="price">R180.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Conditioner', 180)">Add to Cart</button>
-                </div>
+                <label class="filter-field">
+                    <span>Category</span>
+                    <select id="productFilter">
+                        <option value="all">All</option>
+                        <option value="care">Care</option>
+                        <option value="styling">Styling</option>
+                        <option value="nourish">Nourish</option>
+                    </select>
+                </label>
 
-                <!-- Product 3: Hair Spray -->
-                <div class="product-card">
-                    <img src="../assets/images/hairsprayimage.png" alt="Hair Spray" class="product-img">
-                    <h3>Hair Spray</h3>
-                    <p class="price">R120.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Hair Spray', 120)">Add to Cart</button>
-                </div>
-
-                <!-- Product 4: Hair Oil -->
-                <div class="product-card">
-                    <img src="../assets/images/hairoilimage.png" alt="Hair Oil" class="product-img">
-                    <h3>Hair Oil</h3>
-                    <p class="price">R150.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Hair Oil', 150)">Add to Cart</button>
-                </div>
-
-                <!-- Product 5: Hair Butter -->
-                <div class="product-card">
-                    <img src="../assets/images/hairbutterimage.png" alt="Hair Butter" class="product-img">
-                    <h3>Hair Butter</h3>
-                    <p class="price">R160.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Hair Butter', 160)">Add to Cart</button>
-                </div>
-
-                <!-- Product 6: Hair Gel -->
-                <div class="product-card">
-                    <img src="../assets/images/hairgelimage.png" alt="Hair Gel" class="product-img">
-                    <h3>Hair Gel</h3>
-                    <p class="price">R110.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Hair Gel', 110)">Add to Cart</button>
-                </div>
-
-                <!-- Product 7: Hair Mist -->
-                <div class="product-card">
-                    <img src="../assets/images/hairmistimage.png" alt="Hair Mist" class="product-img">
-                    <h3>Hair Mist</h3>
-                    <p class="price">R130.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Hair Mist', 130)">Add to Cart</button>
-                </div>
-
-                <!-- Product 8: Edge Control -->
-                <div class="product-card">
-                    <img src="../assets/images/edgecontrolimage.png" alt="Edge Control" class="product-img">
-                    <h3>Edge Control</h3>
-                    <p class="price">R95.00</p>
-                    <button class="btn btn-primary" onclick="addToCart('Edge Control', 95)">Add to Cart</button>
-                </div>
-
+                <label class="sort-field">
+                    <span>Sort by</span>
+                    <select id="productSort">
+                        <option value="name-asc">Name A–Z</option>
+                        <option value="name-desc">Name Z–A</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                    </select>
+                </label>
             </div>
+
+            <div class="product-grid" data-product-grid></div>
         </section>
     </main>
 
-    <!-- Cart Storage Script -->
-    <script>
-        function addToCart(productName, price) {
-            // Get existing cart items from localStorage or create an empty array
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
-            // Add selected item
-            cart.push({ name: productName, price: price });
-            
-            // Save updated cart back to localStorage
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            alert(productName + ' (R' + price + '.00) added to cart!');
-        }
-    </script>
-<footer class="site-footer">
-    <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
-</footer>
+    <footer class="site-footer">
+        <p>&copy; Copyright 2026 Mhlaba Hair. All Rights Reserved. </p>
+    </footer>
+
+    <script src="../assets/js/site.js"></script>
 </body>
 </html>

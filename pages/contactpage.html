@@ -3,28 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | We De</title>
+    <title>Contact | Mhlaba Hair</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
     <header class="main-header">
-        <div class="header-brand">
-            <img src="../images/logo.png" alt="Business logo" class="nav-logo">
-            <h1>We De</h1>
-        </div>
-
+        <h1>Contact Us</h1>
         <nav class="navbar" aria-label="Main navigation">
-            <a href="../index.html">Home</a>
-            <a href="../about.html">About</a>
-            <a href="../services.html">Services</a>
-            <a href="../products.html">Products</a>
-            <a href="contactpage.html" class="active">Contact</a>
-            <a href="enquirypage.html">Enquiry</a>
-            <a href="../cart.html">Cart</a>
+            <a href="homepage.html">Home</a>
+            <a href="aboutuspage.html">About Us</a>
+            <a href="bookingspage.html">Bookings</a>
+            <a href="contactpage.html" class="active">Contact Us</a>
+            <a href="productpage.html">Shop</a>
+            <a href="calculatepage.html">Cart</a>
         </nav>
     </header>
 
     <main class="content-container">
+        <section class="contact-section">
+            <div class="contact-card">
+                <h2>Visit or Call Us</h2>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="icon-box">📍</div>
+                        <div class="contact-details">
+                            <span class="contact-label">Location</span>
+                            <p class="contact-value text-address">42 Mhlaba Street, Johannesburg, South Africa</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon-box">☎️</div>
+                        <div class="contact-details">
+                            <span class="contact-label">Phone</span>
+                            <a class="contact-value" href="tel:+27123456789">+27 12 345 6789</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon-box">✉️</div>
+                        <div class="contact-details">
+                            <span class="contact-label">Email</span>
+                            <a class="contact-value" href="mailto:hello@mhlaba-hair.co.za">hello@mhlaba-hair.co.za</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <div id="map" class="map-container" aria-label="Map showing Mhlaba Hair location"></div>
+        </section>
+
         <section class="form-card">
             <h2>Contact Us</h2>
 
@@ -136,5 +165,7 @@
             setContactStatus('Your message is ready to send. Click the email button below to continue.');
         });
     </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../assets/js/site.js"></script>
 </body>
 </html>
